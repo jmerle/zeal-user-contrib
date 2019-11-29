@@ -54,11 +54,9 @@ class ZealUserContrib extends Command {
     }
 
     const docset = await this.selectDocset();
-
     const docsetDirectory = path.resolve(docsetsDirectory, `${docset.id}.docset`);
-    const docsetExists = fs.existsSync(docsetDirectory);
 
-    if (docsetExists) {
+    if (fs.existsSync(docsetDirectory)) {
       if (!this.flags.force) {
         throw new Error(`${docsetDirectory} already exists, use --force to overwrite it`);
       }
@@ -67,14 +65,14 @@ class ZealUserContrib extends Command {
       fs.removeSync(docsetDirectory);
     }
 
-    const metadata = getMetadata(docset);
+    const metadata = getMetadata(docset, this.flags.mirror);
 
     await downloadDocset(docset, metadata, docsetDirectory);
     saveIcons(docset, docsetDirectory);
     saveMetadata(metadata, docsetDirectory);
 
-    signale.success(`Successfully added the ${docset.name} docset to Zeal!`);
-    signale.info('If Zeal is running, make sure to restart it for the docset to show up.');
+    signale.success(`Successfully added the ${docset.name} docset to Zeal`);
+    signale.info('If Zeal is running, make sure to restart it for the docset to show up');
   }
 
   private async selectDocset(): Promise<Docset> {
