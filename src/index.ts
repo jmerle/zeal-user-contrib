@@ -17,7 +17,7 @@ class ZealUserContrib extends Command {
 
   public static flags = {
     help: flags.help({ char: 'h' }),
-    version: flags.version(),
+    version: flags.version({ char: 'v' }),
     mirror: flags.string({
       char: 'm',
       description: 'the mirror to use, by default a random one is chosen',

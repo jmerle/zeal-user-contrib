@@ -7,6 +7,8 @@ A convenient CLI to add Dash's User Contributed docsets to Zeal. It automates th
 [![Version](https://img.shields.io/npm/v/zeal-user-contrib.svg)](https://npmjs.org/package/zeal-user-contrib)
 [![License](https://img.shields.io/npm/l/zeal-user-contrib.svg)](https://github.com/jmerle/zeal-user-contrib/blob/master/package.json)
 
+![](https://i.imgur.com/VueSHtV.gif)
+
 ## Install
 
 ```
@@ -15,7 +17,7 @@ $ npm install --global zeal-user-contrib
 $ yarn global add zeal-user-contrib
 ```
 
-## Usage 
+## Usage
 
 ```
 $ zeal-user-contrib --help
@@ -29,5 +31,5 @@ OPTIONS
   -h, --help                                          show CLI help
   -m, --mirror=sanfrancisco|newyork|london|frankfurt  the mirror to use, by default a random one is chosen
   -o, --output-directory=output-directory             path to Zeal's docsets directory, overriding the default search for it
-  --version                                           show CLI version
+  -v, --version                                       show CLI version
 ```
