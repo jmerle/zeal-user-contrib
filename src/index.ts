@@ -1,9 +1,9 @@
-import { flags } from '@oclif/command';
+import Command, { flags } from '@oclif/command';
+import { OutputFlags } from '@oclif/parser';
 import * as fs from 'fs-extra';
 import * as inquirer from 'inquirer';
 import * as path from 'path';
 import * as signale from 'signale';
-import { BaseCommand } from './BaseCommand';
 import { Docset, downloadDocset, getAvailableDocsets } from './docsets';
 import { saveIcons } from './icons';
 import { availableMirrors, getMetadata, saveMetadata } from './metadata';
@@ -12,11 +12,12 @@ import { getDocsetsDirectory } from './zeal';
 // tslint:disable-next-line:no-var-requires
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 
-class ZealUserContrib extends BaseCommand {
+class ZealUserContrib extends Command {
   public static description = "conveniently add Dash's User Contributed docsets to Zeal";
 
   public static flags = {
-    ...BaseCommand.flags,
+    help: flags.help({ char: 'h' }),
+    version: flags.version(),
     mirror: flags.string({
       char: 'm',
       description: 'the mirror to use, by default a random one is chosen',
@@ -31,6 +32,20 @@ class ZealUserContrib extends BaseCommand {
       description: 'overwrite existing docsets',
     }),
   };
+
+  protected flags: OutputFlags<any> = {};
+
+  public async run(): Promise<void> {
+    const data = this.parse(this.constructor as any);
+    this.flags = data.flags as OutputFlags<any>;
+
+    try {
+      await this.runSafe();
+    } catch (err) {
+      signale.error(err.message);
+      this.exit(1);
+    }
+  }
 
   protected async runSafe(): Promise<void> {
     let docsetsDirectory: string = this.flags['output-directory'];
