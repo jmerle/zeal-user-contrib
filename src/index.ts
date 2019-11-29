@@ -1,5 +1,6 @@
 import { flags } from '@oclif/command';
 import { BaseCommand } from './BaseCommand';
+import { getDocsetsDirectory } from './zeal';
 
 class ZealUserContrib extends BaseCommand {
   public static description = "conveniently add Dash's User Contributed docsets to Zeal";
@@ -13,7 +14,15 @@ class ZealUserContrib extends BaseCommand {
   };
 
   public async run(): Promise<void> {
-    this.log('Hello world!');
+    let docsetsDirectory: string = this.flags['output-directory'];
+
+    if (docsetsDirectory === undefined) {
+      try {
+        docsetsDirectory = getDocsetsDirectory();
+      } catch (err) {
+        this.err(err.message);
+      }
+    }
   }
 }
 

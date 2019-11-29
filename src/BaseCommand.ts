@@ -5,10 +5,6 @@ export abstract class BaseCommand extends Command {
   public static flags = {
     help: flags.help({ char: 'h' }),
     version: flags.version(),
-    verbose: flags.boolean({
-      char: 'v',
-      default: false,
-    }),
   };
 
   protected args: OutputArgs<any> = {};
@@ -19,12 +15,6 @@ export abstract class BaseCommand extends Command {
 
     this.args = data.args;
     this.flags = data.flags as OutputFlags<any>;
-  }
-
-  protected info(message?: string, ...args: any[]): void {
-    if (this.flags.verbose) {
-      super.log(message, ...args);
-    }
   }
 
   protected err(error: string | Error, exit: boolean = true): void {
