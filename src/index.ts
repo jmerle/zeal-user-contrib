@@ -33,11 +33,10 @@ class ZealUserContrib extends Command {
     }),
   };
 
-  protected flags: OutputFlags<any> = {};
+  protected flags: OutputFlags<typeof ZealUserContrib.flags>;
 
   public async run(): Promise<void> {
-    const data = this.parse(this.constructor as any);
-    this.flags = data.flags as OutputFlags<any>;
+    this.flags = this.parse(ZealUserContrib).flags;
 
     try {
       await this.runSafe();
@@ -47,7 +46,7 @@ class ZealUserContrib extends Command {
     }
   }
 
-  protected async runSafe(): Promise<void> {
+  private async runSafe(): Promise<void> {
     let docsetsDirectory: string = this.flags['output-directory'];
     if (docsetsDirectory === undefined) {
       docsetsDirectory = getDocsetsDirectory();
