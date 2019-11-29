@@ -3,6 +3,7 @@
 A convenient CLI to add Dash's User Contributed docsets to Zeal.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+[![Build Status](https://dev.azure.com/jmerle/zeal-user-contrib/_apis/build/status/Build?branchName=master)](https://dev.azure.com/jmerle/zeal-user-contrib/_build/latest?definitionId=12&branchName=master)
 [![Version](https://img.shields.io/npm/v/zeal-user-contrib.svg)](https://npmjs.org/package/zeal-user-contrib)
 [![License](https://img.shields.io/npm/l/zeal-user-contrib.svg)](https://github.com/jmerle/zeal-user-contrib/blob/master/package.json)
 
