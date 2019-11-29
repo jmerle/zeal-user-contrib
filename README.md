@@ -27,8 +27,8 @@ USAGE
   $ zeal-user-contrib
 
 OPTIONS
-  -h, --help                             show CLI help
-  -o, --outputDirectory=outputDirectory  path to Zeal's docsets directory, overriding the default search for it
+  -h, --help                               show CLI help
+  -o, --output-directory=output-directory  path to Zeal's docsets directory, overriding the default search for it
   -v, --verbose
-  --version                              show CLI version
+  --version                                show CLI version
 ```

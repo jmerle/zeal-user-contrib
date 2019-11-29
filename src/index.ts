@@ -6,7 +6,7 @@ class ZealUserContrib extends BaseCommand {
 
   public static flags = {
     ...BaseCommand.flags,
-    outputDirectory: flags.string({
+    'output-directory': flags.string({
       char: 'o',
       description: "path to Zeal's docsets directory, overriding the default search for it",
     }),
