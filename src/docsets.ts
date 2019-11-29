@@ -25,8 +25,8 @@ export interface Docset {
   aliases: string[];
 
   // Base64 strings of the icon
-  icon: string;
-  'icon@2x': string;
+  icon?: string;
+  'icon@2x'?: string;
 
   author: DocsetAuthor;
 }

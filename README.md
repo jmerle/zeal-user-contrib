@@ -15,9 +15,7 @@ $ npm install --global zeal-user-contrib
 $ yarn global add zeal-user-contrib
 ```
 
-## Usage
-
-Simply run `zeal-user-contrib` and select the docset you want to install. If the script cannot find Zeal's docsets directory or if you have custom needs, you can specify the output directory with `--output-directory path/to/zeal/docsets`. 
+## Usage 
 
 ```
 $ zeal-user-contrib --help
@@ -27,8 +25,9 @@ USAGE
   $ zeal-user-contrib
 
 OPTIONS
-  -h, --help                               show CLI help
-  -o, --output-directory=output-directory  path to Zeal's docsets directory, overriding the default search for it
-  -v, --verbose
-  --version                                show CLI version
+  -f, --force                                         overwrite existing docsets
+  -h, --help                                          show CLI help
+  -m, --mirror=sanfrancisco|newyork|london|frankfurt  the mirror to use, by default a random one is chosen
+  -o, --output-directory=output-directory             path to Zeal's docsets directory, overriding the default search for it
+  --version                                           show CLI version
 ```
