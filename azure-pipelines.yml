@@ -1,0 +1,9 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - script: yarn --frozen-lockfile
+    displayName: Install dependencies
+
+  - script: yarn lint
+    displayName: Lint
