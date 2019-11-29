@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as signale from 'signale';
 import { Docset } from './docsets';
+import { logger } from './logger';
 
 export interface Metadata {
   // A link to the xml feed, zeal-user-contrib sets this to the zealusercontributions.herokuapp.com feed
@@ -40,6 +40,6 @@ export function getMetadata(docset: Docset, mirror?: string): Metadata {
 
 export function saveMetadata(metadata: Metadata, docsetDirectory: string): void {
   const metaPath = path.resolve(docsetDirectory, 'meta.json');
-  signale.info(`Writing metadata to ${metaPath}`);
+  logger.info(`Writing metadata to ${metaPath}`);
   fs.writeFileSync(metaPath, JSON.stringify(metadata, null, 2));
 }

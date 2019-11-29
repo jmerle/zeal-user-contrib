@@ -1,9 +1,9 @@
 import axios from 'axios';
 import * as fs from 'fs-extra';
-import * as signale from 'signale';
 import { Readable } from 'stream';
 import * as tar from 'tar';
 import * as tempy from 'tempy';
+import { logger } from './logger';
 import { Metadata } from './metadata';
 
 export interface DocsetAuthor {
@@ -55,13 +55,13 @@ export async function downloadDocset(docset: Docset, metadata: Metadata, docsetD
   // If a mirror is specified with --mirror, metadata.urls will only contain one url
   const archiveUrl = metadata.urls[Math.floor(Math.random() * metadata.urls.length)];
 
-  signale.pending(`Downloading docset from ${archiveUrl}`);
+  logger.info(`Downloading docset from ${archiveUrl}`);
 
   const tempPath = tempy.file({ name: `${docset.name}.tar.gz` });
   const archiveResponse = await axios.get<Readable>(archiveUrl, { responseType: 'arraybuffer' });
   fs.writeFileSync(tempPath, archiveResponse.data);
 
-  signale.pending(`Extracting docset to ${docsetDirectory}`);
+  logger.info(`Extracting docset to ${docsetDirectory}`);
 
   fs.ensureDirSync(docsetDirectory);
   await tar.extract({

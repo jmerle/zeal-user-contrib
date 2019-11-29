@@ -3,9 +3,9 @@ import { OutputFlags } from '@oclif/parser';
 import * as fs from 'fs-extra';
 import * as inquirer from 'inquirer';
 import * as path from 'path';
-import * as signale from 'signale';
 import { Docset, downloadDocset, getAvailableDocsets } from './docsets';
 import { saveIcons } from './icons';
+import { logger } from './logger';
 import { availableMirrors, getMetadata, saveMetadata } from './metadata';
 import { getDocsetsDirectory } from './zeal';
 
@@ -41,7 +41,7 @@ class ZealUserContrib extends Command {
     try {
       await this.runSafe();
     } catch (err) {
-      signale.error(err.message);
+      logger.error(err.message);
       this.exit(1);
     }
   }
@@ -60,7 +60,7 @@ class ZealUserContrib extends Command {
         throw new Error(`${docsetDirectory} already exists, use --force to overwrite it`);
       }
 
-      signale.info(`Removing existing docset at ${docsetDirectory}`);
+      logger.warn(`Removing existing docset at ${docsetDirectory}`);
       fs.removeSync(docsetDirectory);
     }
 
@@ -70,8 +70,8 @@ class ZealUserContrib extends Command {
     saveIcons(docset, docsetDirectory);
     saveMetadata(metadata, docsetDirectory);
 
-    signale.success(`Successfully added the ${docset.name} docset to Zeal`);
-    signale.info('If Zeal is running, make sure to restart it for the docset to show up');
+    logger.success(`Successfully added the ${docset.name} docset to Zeal`);
+    logger.info('If Zeal is running, make sure to restart it for the docset to show up');
   }
 
   private async selectDocset(): Promise<Docset> {
