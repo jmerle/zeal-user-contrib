@@ -7,7 +7,7 @@ A convenient CLI to add Dash's User Contributed docsets to Zeal. It automates th
 [![Version](https://img.shields.io/npm/v/zeal-user-contrib.svg)](https://npmjs.org/package/zeal-user-contrib)
 [![License](https://img.shields.io/npm/l/zeal-user-contrib.svg)](https://github.com/jmerle/zeal-user-contrib/blob/master/LICENSE)
 
-![](https://i.imgur.com/lLb027I.gif)
+![](https://i.imgur.com/Tax0nTT.gif)
 
 ## Install
 
