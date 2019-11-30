@@ -1,6 +1,6 @@
 {
   "name": "zeal-user-contrib",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A convenient CLI to add Dash's User Contributed docsets to Zeal",
   "repository": "jmerle/zeal-user-contrib",
   "homepage": "https://github.com/jmerle/zeal-user-contrib",
