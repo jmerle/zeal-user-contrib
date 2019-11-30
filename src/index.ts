@@ -76,7 +76,7 @@ class ZealUserContrib extends Command {
   }
 
   private async selectDocset(): Promise<Docset> {
-    const availableDocsets = await getAvailableDocsets();
+    const availableDocsets = await getAvailableDocsets(this.flags.mirror);
     const docsetNames = availableDocsets
       .map(docset => docset.name)
       .sort((a, b) => {

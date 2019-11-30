@@ -36,10 +36,11 @@ export interface Docset {
   author: DocsetAuthor;
 }
 
-export async function getAvailableDocsets(): Promise<Docset[]> {
-  const response = await got('https://kapeli.com/feeds/zzz/user_contributed/build/index.json', {
-    json: true,
-  });
+export async function getAvailableDocsets(mirror?: string): Promise<Docset[]> {
+  mirror = mirror !== undefined ? mirror + '.' : '';
+
+  const url = `https://${mirror}kapeli.com/feeds/zzz/user_contributed/build/index.json`;
+  const response = await got(url, { json: true });
 
   return Object.keys(response.body.docsets).map(key => {
     return {
