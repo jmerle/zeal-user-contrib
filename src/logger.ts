@@ -1,9 +1,10 @@
 // tslint:disable:no-console
 
 import * as chalk from 'chalk';
+import * as ProgressBar from 'progress';
 
 class Logger {
-  private prefixLength = 7;
+  private prefixLength = 8;
 
   public info(...params: any[]): void {
     const prefix = chalk.blue(this.padPrefix('info'));
@@ -23,6 +24,17 @@ class Logger {
   public success(...params: any[]): void {
     const prefix = chalk.green(this.padPrefix('success'));
     console.error(prefix, ...params);
+  }
+
+  public progress(total?: number): ProgressBar {
+    const prefix = chalk.cyan(this.padPrefix('progress'));
+
+    return new ProgressBar(`${prefix} [:bar] :percent`, {
+      complete: '=',
+      incomplete: ' ',
+      width: 50,
+      total: total || 100,
+    });
   }
 
   private padPrefix(prefix: string): string {

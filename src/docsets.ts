@@ -1,6 +1,5 @@
-import axios from 'axios';
 import * as fs from 'fs-extra';
-import { Readable } from 'stream';
+import * as got from 'got';
 import * as tar from 'tar';
 import * as tempy from 'tempy';
 import { logger } from './logger';
@@ -38,29 +37,42 @@ export interface Docset {
 }
 
 export async function getAvailableDocsets(): Promise<Docset[]> {
-  const response = await axios.get('https://kapeli.com/feeds/zzz/user_contributed/build/index.json', {
-    responseType: 'json',
+  const response = await got('https://kapeli.com/feeds/zzz/user_contributed/build/index.json', {
+    json: true,
   });
 
-  return Object.keys(response.data.docsets).map(key => {
+  return Object.keys(response.body.docsets).map(key => {
     return {
       id: key,
-      ...response.data.docsets[key],
+      ...response.body.docsets[key],
     };
   });
 }
 
-export async function downloadDocset(docset: Docset, metadata: Metadata, docsetDirectory: string): Promise<void> {
-  // By default a random url is chosen, just like how Zeal would download a docset
-  // If a mirror is specified with --mirror, metadata.urls will only contain one url
-  const archiveUrl = metadata.urls[Math.floor(Math.random() * metadata.urls.length)];
+export async function downloadDocset(docset: Docset, metadata: Metadata, docsetDirectory: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    // By default a random url is chosen, just like how Zeal would download a docset
+    // If a mirror is specified with --mirror, metadata.urls will only contain one url
+    const archiveUrl = metadata.urls[Math.floor(Math.random() * metadata.urls.length)];
 
-  logger.info(`Downloading docset from ${archiveUrl}`);
+    const tempPath = tempy.file({ name: `${docset.name}.tar.gz` });
+    const writeStream = fs
+      .createWriteStream(tempPath)
+      .on('finish', () => resolve(tempPath))
+      .on('error', err => reject(err));
 
-  const tempPath = tempy.file({ name: `${docset.name}.tar.gz` });
-  const archiveResponse = await axios.get<Readable>(archiveUrl, { responseType: 'arraybuffer' });
-  fs.writeFileSync(tempPath, archiveResponse.data);
+    logger.info(`Downloading docset from ${archiveUrl}`);
+    const bar = logger.progress();
 
+    got
+      .stream(archiveUrl)
+      .on('downloadProgress', progress => bar.update(progress.percent))
+      .on('error', err => reject(err))
+      .pipe(writeStream);
+  });
+}
+
+export async function extractDocset(tempPath: string, docsetDirectory: string): Promise<void> {
   logger.info(`Extracting docset to ${docsetDirectory}`);
 
   fs.ensureDirSync(docsetDirectory);

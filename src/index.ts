@@ -3,7 +3,7 @@ import { OutputFlags } from '@oclif/parser';
 import * as fs from 'fs-extra';
 import * as inquirer from 'inquirer';
 import * as path from 'path';
-import { Docset, downloadDocset, getAvailableDocsets } from './docsets';
+import { Docset, downloadDocset, extractDocset, getAvailableDocsets } from './docsets';
 import { saveIcons } from './icons';
 import { logger } from './logger';
 import { availableMirrors, getMetadata, saveMetadata } from './metadata';
@@ -66,7 +66,8 @@ class ZealUserContrib extends Command {
 
     const metadata = getMetadata(docset, this.flags.mirror);
 
-    await downloadDocset(docset, metadata, docsetDirectory);
+    const tempPath = await downloadDocset(docset, metadata, docsetDirectory);
+    await extractDocset(tempPath, docsetDirectory);
     saveIcons(docset, docsetDirectory);
     saveMetadata(metadata, docsetDirectory);
 
