@@ -30,7 +30,7 @@
     "lint:prettier": "prettier --check --ignore-path .gitignore '**/*.{ts,json}'",
     "lint:tslint": "tslint -p tsconfig.json -c tslint.json -t stylish",
     "fix": "yarn fix:tslint && yarn fix:prettier",
-    "fix:prettier": "prettier --write --ignore-path .gitignore '**/*.{ts,json}'",
+    "fix:prettier": "prettier --write --ignore-path .gitignore \"**/*.{ts,json}\"",
     "fix:tslint": "yarn lint:tslint --fix",
     "prepack": "rm -rf lib && tsc -b"
   },
@@ -45,6 +45,7 @@
     "inquirer": "^6.0.0",
     "inquirer-autocomplete-prompt": "^1.0.1",
     "progress": "^2.0.3",
+    "registry-js": "^1.9.0",
     "tar": "^5.0.5",
     "tempy": "^0.3.0",
     "tslib": "^1"

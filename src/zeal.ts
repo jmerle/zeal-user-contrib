@@ -2,6 +2,7 @@ import * as fs from 'fs-extra';
 import * as ini from 'ini';
 import * as os from 'os';
 import * as path from 'path';
+import { enumerateValuesSafe, HKEY } from 'registry-js';
 
 // Zeal uses QStandardPaths::DataLocation + '/docsets' as docsets directory
 // See https://doc.qt.io/qt-5/qstandardpaths.html
@@ -11,6 +12,13 @@ function appendZeal(directory: string): string {
 }
 
 function getWindowsDirectories(): string[] {
+  const registryValues = enumerateValuesSafe(HKEY.HKEY_CURRENT_USER, 'Software\\Zeal\\Zeal\\docsets');
+  const docsetValue = registryValues.find(value => value.name === 'path');
+
+  if (docsetValue !== undefined) {
+    return [docsetValue.data as string];
+  }
+
   return [path.resolve(os.homedir(), 'AppData/Local'), process.env.PROGRAMDATA].map(appendZeal);
 }
 
