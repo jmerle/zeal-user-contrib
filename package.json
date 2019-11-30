@@ -13,7 +13,12 @@
     "zeal-user-contrib": "./bin/run"
   },
   "keywords": [
-    "oclif"
+    "oclif",
+    "zeal",
+    "dash",
+    "docset",
+    "docsets",
+    "cli"
   ],
   "files": [
     "/bin",
