@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as ini from 'ini';
 import * as os from 'os';
 import * as path from 'path';
-import { enumerateValuesSafe, HKEY } from 'registry-js';
+import * as Registry from 'winreg';
 
 // Zeal uses QStandardPaths::DataLocation + '/docsets' as docsets directory
 // See https://doc.qt.io/qt-5/qstandardpaths.html
@@ -11,15 +11,29 @@ function appendZeal(directory: string): string {
   return path.resolve(directory, 'Zeal/Zeal/docsets');
 }
 
-function getWindowsDirectories(): string[] {
-  const registryValues = enumerateValuesSafe(HKEY.HKEY_CURRENT_USER, 'Software\\Zeal\\Zeal\\docsets');
-  const docsetValue = registryValues.find(value => value.name === 'path');
+function getWindowsDirectories(): Promise<string[]> {
+  return new Promise(resolve => {
+    const defaultDirectories = [path.resolve(os.homedir(), 'AppData/Local'), process.env.PROGRAMDATA].map(appendZeal);
 
-  if (docsetValue !== undefined) {
-    return [docsetValue.data as string];
-  }
+    const regKey = new Registry({
+      hive: Registry.HKCU,
+      key: '\\Software\\Zeal\\Zeal\\docsets',
+    });
 
-  return [path.resolve(os.homedir(), 'AppData/Local'), process.env.PROGRAMDATA].map(appendZeal);
+    regKey.values((err, items) => {
+      if (err) {
+        resolve(defaultDirectories);
+      } else {
+        const docsetValue = items.find(item => item.name === 'path');
+
+        if (docsetValue !== undefined) {
+          resolve([docsetValue.value]);
+        } else {
+          resolve(defaultDirectories);
+        }
+      }
+    });
+  });
 }
 
 function getLinuxDirectories(): string[] {
@@ -35,8 +49,8 @@ function getLinuxDirectories(): string[] {
   return [path.resolve(os.homedir(), '.local/share'), '/usr/local/share', '/usr/share'].map(appendZeal);
 }
 
-export function getDocsetsDirectory(): string {
-  const directoriesToCheck = os.platform() === 'win32' ? getWindowsDirectories() : getLinuxDirectories();
+export async function getDocsetsDirectory(): Promise<string> {
+  const directoriesToCheck = os.platform() === 'win32' ? await getWindowsDirectories() : getLinuxDirectories();
 
   for (const directory of directoriesToCheck) {
     if (fs.existsSync(directory)) {

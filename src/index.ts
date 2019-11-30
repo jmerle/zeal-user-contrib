@@ -49,7 +49,7 @@ class ZealUserContrib extends Command {
   private async runSafe(): Promise<void> {
     let docsetsDirectory: string = this.flags['output-directory'];
     if (docsetsDirectory === undefined) {
-      docsetsDirectory = getDocsetsDirectory();
+      docsetsDirectory = await getDocsetsDirectory();
     }
 
     const docset = await this.selectDocset();

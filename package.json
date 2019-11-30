@@ -45,10 +45,10 @@
     "inquirer": "^6.0.0",
     "inquirer-autocomplete-prompt": "^1.0.1",
     "progress": "^2.0.3",
-    "registry-js": "^1.9.0",
     "tar": "^5.0.5",
     "tempy": "^0.3.0",
-    "tslib": "^1"
+    "tslib": "^1",
+    "winreg": "^1.2.4"
   },
   "devDependencies": {
     "@oclif/parser": "^3.8.4",
@@ -59,6 +59,7 @@
     "@types/node": "^12",
     "@types/progress": "^2.0.3",
     "@types/tar": "^4.0.3",
+    "@types/winreg": "^1.2.30",
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
     "np": "^5.1.3",
