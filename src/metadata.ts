@@ -4,7 +4,7 @@ import { Docset } from './docsets';
 import { logger } from './logger';
 
 export interface Metadata {
-  // A link to the xml feed, zeal-user-contrib sets this to the zealusercontributions.herokuapp.com feed
+  // A link to the xml feed, zeal-user-contrib sets this to a zealusercontributions.herokuapp.com feed
   feed_url: string;
 
   // An array of archive url's
