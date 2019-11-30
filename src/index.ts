@@ -66,7 +66,7 @@ class ZealUserContrib extends Command {
 
     const metadata = getMetadata(docset, this.flags.mirror);
 
-    const tempPath = await downloadDocset(docset, metadata, docsetDirectory);
+    const tempPath = await downloadDocset(docset, metadata);
     await extractDocset(tempPath, docsetDirectory);
     saveIcons(docset, docsetDirectory);
     saveMetadata(metadata, docsetDirectory);

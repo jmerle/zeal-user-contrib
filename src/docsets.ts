@@ -50,7 +50,7 @@ export async function getAvailableDocsets(mirror?: string): Promise<Docset[]> {
   });
 }
 
-export async function downloadDocset(docset: Docset, metadata: Metadata, docsetDirectory: string): Promise<string> {
+export async function downloadDocset(docset: Docset, metadata: Metadata): Promise<string> {
   return new Promise((resolve, reject) => {
     // By default a random url is chosen, just like how Zeal would download a docset
     // If a mirror is specified with --mirror, metadata.urls will only contain one url
