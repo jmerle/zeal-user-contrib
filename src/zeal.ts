@@ -24,10 +24,10 @@ function getWindowsDirectories(): Promise<string[]> {
       if (err) {
         resolve(defaultDirectories);
       } else {
-        const docsetValue = items.find(item => item.name === 'path');
+        const pathItem = items.find(item => item.name === 'path');
 
-        if (docsetValue !== undefined) {
-          resolve([docsetValue.value]);
+        if (pathItem !== undefined) {
+          resolve([pathItem.value]);
         } else {
           resolve(defaultDirectories);
         }

@@ -26,14 +26,14 @@ class Logger {
     console.error(prefix, ...params);
   }
 
-  public progress(total?: number): ProgressBar {
+  public progress(total: number = 100): ProgressBar {
     const prefix = chalk.cyan(this.padPrefix('progress'));
 
     return new ProgressBar(`${prefix} [:bar] :percent`, {
       complete: '=',
       incomplete: ' ',
       width: 50,
-      total: total || 100,
+      total,
     });
   }
 
