@@ -2,10 +2,10 @@
 
 A convenient CLI to add Dash's User Contributed docsets to Zeal. It automates the process of going to [zealusercontributions.herokuapp.com](https://zealusercontributions.herokuapp.com/), adding the XML feed to Zeal and downloading the icons to the correct directory.
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Build Status](https://dev.azure.com/jmerle/zeal-user-contrib/_apis/build/status/Build?branchName=master)](https://dev.azure.com/jmerle/zeal-user-contrib/_build/latest?definitionId=12&branchName=master)
+[![Build Status](https://github.com/jmerle/zeal-user-contrib/workflows/Build/badge.svg)](https://github.com/jmerle/zeal-user-contrib/actions?query=workflow%3ABuild)
 [![Version](https://img.shields.io/npm/v/zeal-user-contrib.svg)](https://npmjs.org/package/zeal-user-contrib)
 [![License](https://img.shields.io/npm/l/zeal-user-contrib.svg)](https://github.com/jmerle/zeal-user-contrib/blob/master/LICENSE)
+[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 
 ![](https://i.imgur.com/Tax0nTT.gif)
 
