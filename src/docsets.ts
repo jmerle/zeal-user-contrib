@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import * as got from 'got';
+import got from 'got';
 import * as tar from 'tar';
 import * as tempy from 'tempy';
 import { logger } from './logger';
@@ -24,6 +24,8 @@ export interface Docset {
   name: string;
 
   version: string;
+
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   specific_version: DocsetVersion[];
 
   archive: string;
@@ -40,12 +42,14 @@ export async function getAvailableDocsets(mirror?: string): Promise<Docset[]> {
   mirror = mirror !== undefined ? mirror + '.' : '';
 
   const url = `https://${mirror}kapeli.com/feeds/zzz/user_contributed/build/index.json`;
-  const response = await got(url, { json: true });
+  const response = await got(url, { responseType: 'json' });
 
-  return Object.keys(response.body.docsets).map(key => {
+  const body = response.body as any;
+
+  return Object.keys(body.docsets).map(key => {
     return {
       id: key,
-      ...response.body.docsets[key],
+      ...body.docsets[key],
     };
   });
 }
@@ -56,6 +60,7 @@ export async function downloadDocset(docset: Docset, metadata: Metadata): Promis
     // If a mirror is specified with --mirror, metadata.urls will only contain one url
     const archiveUrl = metadata.urls[Math.floor(Math.random() * metadata.urls.length)];
 
+    // eslint-disable-next-line import/namespace
     const tempPath = tempy.file({ name: `${docset.name}.tar.gz` });
     const writeStream = fs
       .createWriteStream(tempPath)

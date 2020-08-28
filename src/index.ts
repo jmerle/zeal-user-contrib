@@ -1,8 +1,8 @@
+import * as path from 'path';
 import Command, { flags } from '@oclif/command';
 import { OutputFlags } from '@oclif/parser';
 import * as fs from 'fs-extra';
 import * as inquirer from 'inquirer';
-import * as path from 'path';
 import { Docset, downloadDocset, extractDocset, getAvailableDocsets } from './docsets';
 import { saveIcons } from './icons';
 import { logger } from './logger';

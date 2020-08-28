@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "importHelpers": true,
-    "module": "commonjs",
-    "outDir": "lib",
-    "rootDir": "src",
+    "module": "CommonJS",
+    "target": "ES2017",
     "strict": true,
     "strictNullChecks": false,
-    "target": "es2017"
+    "outDir": "lib",
+    "rootDir": "src",
+    "declaration": true,
+    "importHelpers": true
   },
   "include": ["src/**/*"]
 }

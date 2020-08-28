@@ -1,10 +1,11 @@
-import * as fs from 'fs-extra';
 import * as path from 'path';
+import * as fs from 'fs-extra';
 import { Docset } from './docsets';
 import { logger } from './logger';
 
 export interface Metadata {
   // A link to the xml feed, zeal-user-contrib sets this to a zealusercontributions.herokuapp.com feed
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   feed_url: string;
 
   // An array of archive url's
@@ -30,6 +31,7 @@ export function getMetadata(docset: Docset, mirror?: string): Metadata {
   });
 
   return {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     feed_url: `https://zealusercontributions.herokuapp.com/docsets/${docset.id}.xml`,
     urls: mirrorUrls,
     name: docset.id,

@@ -26,48 +26,52 @@
   ],
   "scripts": {
     "release": "np",
-    "lint": "yarn lint:tslint && yarn lint:prettier",
-    "lint:prettier": "prettier --check --ignore-path .gitignore '**/*.{ts,json}'",
-    "lint:tslint": "tslint -p tsconfig.json -c tslint.json -t stylish",
-    "fix": "yarn fix:tslint && yarn fix:prettier",
-    "fix:prettier": "prettier --write --ignore-path .gitignore \"**/*.{ts,json}\"",
-    "fix:tslint": "yarn lint:tslint --fix",
+    "lint": "yarn lint:eslint && yarn lint:prettier",
+    "lint:eslint": "eslint --format codeframe 'src/**'",
+    "lint:prettier": "prettier --check --ignore-path .gitignore '**/*.{yml,json}'",
+    "fix": "yarn fix:eslint && yarn fix:prettier",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:prettier": "prettier --write --ignore-path .gitignore '**/*.{yml,json}'",
     "prepack": "rm -rf lib && tsc -b"
   },
   "dependencies": {
-    "@oclif/command": "^1",
-    "@oclif/config": "^1",
-    "@oclif/plugin-help": "^2",
-    "chalk": "^3.0.0",
-    "fs-extra": "^8.1.0",
-    "got": "^9.6.0",
+    "@oclif/command": "^1.8.0",
+    "@oclif/config": "^1.17.0",
+    "@oclif/plugin-help": "^3.2.0",
+    "chalk": "^4.1.0",
+    "fs-extra": "^9.0.1",
+    "got": "^11.5.2",
     "ini": "^1.3.5",
-    "inquirer": "^6.0.0",
-    "inquirer-autocomplete-prompt": "^1.0.1",
+    "inquirer": "^7.3.3",
+    "inquirer-autocomplete-prompt": "^1.1.0",
     "progress": "^2.0.3",
-    "tar": "^5.0.5",
-    "tempy": "^0.3.0",
-    "tslib": "^1",
+    "tar": "^6.0.5",
+    "tempy": "^0.6.0",
+    "tslib": "^2.0.1",
     "winreg": "^1.2.4"
   },
   "devDependencies": {
-    "@oclif/parser": "^3.8.4",
-    "@types/fs-extra": "^8.0.1",
-    "@types/got": "^9.6.9",
+    "@oclif/parser": "^3.8.5",
+    "@types/fs-extra": "^9.0.1",
+    "@types/got": "^9.6.11",
     "@types/ini": "^1.3.30",
-    "@types/inquirer": "^6.5.0",
-    "@types/node": "^12",
+    "@types/inquirer": "^7.3.1",
+    "@types/node": "^14.6.1",
     "@types/progress": "^2.0.3",
     "@types/tar": "^4.0.3",
     "@types/winreg": "^1.2.30",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
-    "np": "^5.1.3",
-    "prettier": "^1.19.1",
-    "ts-node": "^8",
-    "tslint": "^5.20.1",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.7.2"
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.13",
+    "np": "^6.4.0",
+    "prettier": "^2.1.1",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -78,6 +82,76 @@
   "np": {
     "tests": false
   },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:import/typescript",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/explicit-member-accessibility": "error",
+      "@typescript-eslint/no-inferrable-types": "off",
+      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          "selector": "default",
+          "format": [
+            "camelCase"
+          ]
+        },
+        {
+          "selector": "variable",
+          "format": [
+            "camelCase",
+            "UPPER_CASE"
+          ]
+        },
+        {
+          "selector": [
+            "typeLike",
+            "enumMember"
+          ],
+          "format": [
+            "PascalCase"
+          ]
+        }
+      ],
+      "@typescript-eslint/explicit-function-return-type": [
+        "error",
+        {
+          "allowExpressions": true
+        }
+      ],
+      "import/order": [
+        "error",
+        {
+          "alphabetize": {
+            "order": "asc",
+            "caseInsensitive": true
+          }
+        }
+      ],
+      "@typescript-eslint/explicit-module-boundary-types": [
+        "error",
+        {
+          "allowArgumentsExplicitlyTypedAsAny": true
+        }
+      ]
+    }
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -85,18 +159,16 @@
   },
   "lint-staged": {
     "*.ts": [
-      "yarn lint:tslint --fix",
-      "prettier --write",
-      "git add"
+      "eslint --format codeframe --fix"
     ],
-    "*.json": [
-      "prettier --write",
-      "git add"
+    "*.{yml,json}": [
+      "prettier --write"
     ]
   },
   "prettier": {
     "printWidth": 120,
     "singleQuote": true,
-    "trailingComma": "all"
+    "trailingComma": "all",
+    "arrowParens": "avoid"
   }
 }
