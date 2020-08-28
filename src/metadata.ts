@@ -4,7 +4,7 @@ import { Docset } from './docsets';
 import { logger } from './logger';
 
 export interface Metadata {
-  // A link to the xml feed, zeal-user-contrib sets this to a zealusercontributions.herokuapp.com feed
+  // A link to the xml feed, zeal-user-contrib sets this to a zealusercontributions.now.sh feed
   // eslint-disable-next-line @typescript-eslint/naming-convention
   feed_url: string;
 
@@ -32,7 +32,7 @@ export function getMetadata(docset: Docset, mirror?: string): Metadata {
 
   return {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    feed_url: `https://zealusercontributions.herokuapp.com/docsets/${docset.id}.xml`,
+    feed_url: `https://zealusercontributions.now.sh/api/docsets/${docset.id}.xml`,
     urls: mirrorUrls,
     name: docset.id,
     title: docset.name,

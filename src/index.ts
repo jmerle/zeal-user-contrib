@@ -15,7 +15,7 @@ inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'))
 class ZealUserContrib extends Command {
   public static description = "conveniently add Dash's User Contributed docsets to Zeal";
 
-  public static flags = {
+  public static flags: flags.Input<any> = {
     help: flags.help({ char: 'h' }),
     version: flags.version({ char: 'v' }),
     mirror: flags.string({
