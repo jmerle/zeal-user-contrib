@@ -1,13 +1,13 @@
 # Zeal User Contrib
 
-A convenient CLI to add Dash's User Contributed docsets to Zeal. It automates the process of going to [zealusercontributions.now.sh](https://zealusercontributions.now.sh/), adding the XML feed to Zeal and downloading the icons to the correct directory.
-
 [![Build Status](https://github.com/jmerle/zeal-user-contrib/workflows/Build/badge.svg)](https://github.com/jmerle/zeal-user-contrib/actions?query=workflow%3ABuild)
 [![Version](https://img.shields.io/npm/v/zeal-user-contrib.svg)](https://npmjs.org/package/zeal-user-contrib)
 [![License](https://img.shields.io/npm/l/zeal-user-contrib.svg)](https://github.com/jmerle/zeal-user-contrib/blob/master/LICENSE)
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 
 ![](https://i.imgur.com/Tax0nTT.gif)
+
+A convenient CLI to add Dash's User Contributed docsets to Zeal. It automates the process of going to [zealusercontributions.now.sh](https://zealusercontributions.now.sh/), adding the XML feed to Zeal and downloading the icons to the correct directory.
 
 ## Install
 
