@@ -3,7 +3,6 @@
 [![Build Status](https://github.com/jmerle/zeal-user-contrib/workflows/Build/badge.svg)](https://github.com/jmerle/zeal-user-contrib/actions?query=workflow%3ABuild)
 [![Version](https://img.shields.io/npm/v/zeal-user-contrib.svg)](https://npmjs.org/package/zeal-user-contrib)
 [![License](https://img.shields.io/npm/l/zeal-user-contrib.svg)](https://github.com/jmerle/zeal-user-contrib/blob/master/LICENSE)
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 
 ![](https://i.imgur.com/Tax0nTT.gif)
 
@@ -20,16 +19,12 @@ $ yarn global add zeal-user-contrib
 ## Usage
 
 ```
-$ zeal-user-contrib --help
-conveniently add Dash's User Contributed docsets to Zeal
+Usage: zeal-user-contrib [options]
 
-USAGE
-  $ zeal-user-contrib
-
-OPTIONS
-  -f, --force                                         overwrite existing docsets
-  -h, --help                                          show CLI help
-  -m, --mirror=sanfrancisco|newyork|london|frankfurt  the mirror to use, by default a random one is chosen
-  -o, --output-directory=output-directory             path to Zeal's docsets directory, overriding the default search for it
-  -v, --version                                       show CLI version
+Options:
+  -V, --version                  output the version number
+  -m, --mirror <mirror>          the mirror to use, by default a random one is chosen (choices: "sanfrancisco", "newyork", "london", "frankfurt")
+  -o, --output-directory <path>  path to Zeal's docsets directory, overriding the default search for it
+  -f, --force                    overwrite existing docsets
+  -h, --help                     display help for command
 ```
