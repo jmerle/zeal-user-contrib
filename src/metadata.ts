@@ -21,7 +21,7 @@ export interface Metadata {
   version: string;
 }
 
-// A mirror is a subdomain of kapeli.com where docsets are downloaded from
+// A mirror is a subdomain of kapeli.com where docsets can be downloaded from
 export const availableMirrors = ['sanfrancisco', 'newyork', 'london', 'frankfurt'];
 
 export function getMetadata(docset: Docset, mirror?: string): Metadata {
