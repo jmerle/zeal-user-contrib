@@ -54,7 +54,11 @@ export async function getAvailableDocsets(mirror?: string): Promise<Docset[]> {
   });
 }
 
-export async function downloadDocset(docset: Docset, metadata: Metadata): Promise<string> {
+export async function downloadDocset(
+  docset: Docset,
+  metadata: Metadata,
+  showProgress: boolean = true,
+): Promise<string> {
   return new Promise((resolve, reject) => {
     // By default a random url is chosen, just like how Zeal would download a docset
     // If a mirror is specified with --mirror, metadata.urls will only contain one url
@@ -68,13 +72,19 @@ export async function downloadDocset(docset: Docset, metadata: Metadata): Promis
       .on('error', err => reject(err));
 
     logger.info(`Downloading docset from ${archiveUrl}`);
-    const bar = logger.progress();
-
-    got
-      .stream(archiveUrl)
-      .on('downloadProgress', progress => bar.update(progress.percent))
-      .on('error', err => reject(err))
-      .pipe(writeStream);
+    if (showProgress) {
+      const bar = logger.progress();
+      got
+        .stream(archiveUrl)
+        .on('downloadProgress', progress => bar.update(progress.percent))
+        .on('error', err => reject(err))
+        .pipe(writeStream);
+    } else {
+      got
+        .stream(archiveUrl)
+        .on('error', err => reject(err))
+        .pipe(writeStream);
+    }
   });
 }
 

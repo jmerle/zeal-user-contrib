@@ -69,26 +69,39 @@ async function runWithOptions(options: any): Promise<void> {
     process.exit(0);
   }
 
-  const docset = await selectDocset();
-  const docsetDirectory = path.resolve(docsetsDirectory, `${docset.id}.docset`);
+  let docsetsToInstall: Docset[] = [];
 
-  if (fs.existsSync(docsetDirectory)) {
-    if (!options.force) {
-      throw new Error(`${docsetDirectory} already exists, use --force to overwrite it`);
-    }
-
-    logger.warn(`Removing existing docset at ${docsetDirectory}`);
-    fs.removeSync(docsetDirectory);
+  if (options.install) {
+    const availableDocsets = await getAvailableDocsets(options.mirror);
+    docsetsToInstall = availableDocsets.filter(docset => options.install.includes(docset.id));
+  } else {
+    const docset = await selectDocset(options.mirror);
+    docsetsToInstall = [docset];
   }
 
-  const metadata = getMetadata(docset, options.mirror);
+  const tasks = docsetsToInstall.map(async docset => {
+    const docsetDirectory = path.resolve(docsetsDirectory, `${docset.id}.docset`);
 
-  const tempPath = await downloadDocset(docset, metadata);
-  await extractDocset(tempPath, docsetDirectory);
-  saveIcons(docset, docsetDirectory);
-  saveMetadata(metadata, docsetDirectory);
+    if (fs.existsSync(docsetDirectory)) {
+      if (!options.force) {
+        throw new Error(`${docsetDirectory} already exists, use --force to overwrite it`);
+      }
 
-  logger.success(`Successfully added the ${docset.name} docset to Zeal`);
+      logger.warn(`Removing existing docset at ${docsetDirectory}`);
+      fs.removeSync(docsetDirectory);
+    }
+
+    const metadata = getMetadata(docset, options.mirror);
+
+    const tempPath = await downloadDocset(docset, metadata, docsetsToInstall.length === 1);
+    await extractDocset(tempPath, docsetDirectory);
+    saveIcons(docset, docsetDirectory);
+    saveMetadata(metadata, docsetDirectory);
+    logger.success(`Successfully added the ${docset.name} docset to Zeal`);
+  });
+
+  await Promise.allSettled(tasks);
+
   logger.info('If Zeal is running, make sure to restart it for the docset to show up');
 }
 
@@ -103,6 +116,7 @@ export async function run(): Promise<void> {
     )
     .option('-l, --list-all', 'List all available docsets without a pager')
     .option('-o, --output-directory <path>', "path to Zeal's docsets directory, overriding the default search for it")
+    .option('-i, --install <ids...>', 'Install packages for the provided IDs')
     .option('-f, --force', 'overwrite existing docsets')
     .parse(process.argv);
 
