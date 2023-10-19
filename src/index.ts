@@ -55,7 +55,8 @@ async function listAllDocsets(mirror?: string): Promise<void> {
     singleLine: true,
     drawHorizontalLine: () => false,
   });
-  console.log(output);
+
+  console.log(output.trim());
 }
 
 async function runWithOptions(options: any): Promise<void> {
@@ -66,7 +67,7 @@ async function runWithOptions(options: any): Promise<void> {
 
   if (options.listAll) {
     await listAllDocsets();
-    process.exit(0);
+    return;
   }
 
   let docsetsToInstall: Docset[] = [];
@@ -97,6 +98,7 @@ async function runWithOptions(options: any): Promise<void> {
     await extractDocset(tempPath, docsetDirectory);
     saveIcons(docset, docsetDirectory);
     saveMetadata(metadata, docsetDirectory);
+
     logger.success(`Successfully added the ${docset.name} docset to Zeal`);
   });
 
