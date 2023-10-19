@@ -42,6 +42,7 @@
     "inquirer": "^8.2.0",
     "inquirer-autocomplete-prompt": "^1.4.0",
     "progress": "^2.0.3",
+    "table": "^6.8.1",
     "tar": "^6.1.11",
     "tempy": "^1.0.1",
     "tslib": "^2.3.1",
