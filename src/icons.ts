@@ -1,7 +1,7 @@
-import * as path from 'path';
-import * as fs from 'fs-extra';
-import { Docset } from './docsets';
-import { logger } from './logger';
+import path from 'node:path';
+import fs from 'fs-extra';
+import { Docset } from './docsets.js';
+import { logger } from './logger.js';
 
 function saveIcon(docsetDirectory: string, name: string, base64: string): void {
   const imagePath = path.resolve(docsetDirectory, `${name}.png`);

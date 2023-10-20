@@ -1,16 +1,24 @@
-import * as path from 'path';
+import path from 'node:path';
+import url from 'node:url';
 import { Command, Option } from 'commander';
-import * as fs from 'fs-extra';
-import * as inquirer from 'inquirer';
+import fs from 'fs-extra';
+import inquirer from 'inquirer';
+import AutocompletePrompt from 'inquirer-autocomplete-prompt';
 import { table, getBorderCharacters } from 'table';
-import { Docset, downloadDocset, extractDocset, getAvailableDocsets } from './docsets';
-import { saveIcons } from './icons';
-import { logger } from './logger';
-import { availableMirrors, getMetadata, saveMetadata } from './metadata';
-import { getDocsetsDirectory } from './zeal';
+import { Docset, downloadDocset, extractDocset, getAvailableDocsets } from './docsets.js';
+import { saveIcons } from './icons.js';
+import { logger } from './logger.js';
+import { availableMirrors, getMetadata, saveMetadata } from './metadata.js';
+import { getDocsetsDirectory } from './zeal.js';
 
-// tslint:disable-next-line:no-var-requires
-inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
+inquirer.registerPrompt('autocomplete', AutocompletePrompt);
+
+function getVersion(): string {
+  const currentDirectory = path.dirname(url.fileURLToPath(import.meta.url));
+  const packageJsonPath = path.resolve(currentDirectory, '../package.json');
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath).toString());
+  return packageJson.version;
+}
 
 async function selectDocset(mirror?: string): Promise<Docset> {
   const availableDocsets = await getAvailableDocsets(mirror);
@@ -110,7 +118,7 @@ async function runWithOptions(options: any): Promise<void> {
 export async function run(): Promise<void> {
   const program = new Command()
     .name('zeal-user-contrib')
-    .version(require('../package.json').version)
+    .version(getVersion())
     .addOption(
       new Option('-m, --mirror <mirror>', 'the mirror to use, by default a random one is chosen').choices(
         availableMirrors,

@@ -1,9 +1,9 @@
-import * as fs from 'fs-extra';
-import got from 'got';
-import * as tar from 'tar';
-import * as tempy from 'tempy';
-import { logger } from './logger';
-import { Metadata } from './metadata';
+import fs from 'fs-extra';
+import { got } from 'got';
+import tar from 'tar';
+import { temporaryFile } from 'tempy';
+import { logger } from './logger.js';
+import { Metadata } from './metadata.js';
 
 export interface DocsetAuthor {
   name: string;
@@ -16,6 +16,7 @@ export interface DocsetVersion {
   author?: DocsetAuthor;
 }
 
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface Docset {
   // Directory-name friendly
   id: string;
@@ -24,8 +25,6 @@ export interface Docset {
   name: string;
 
   version: string;
-
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   specific_version: DocsetVersion[];
 
   archive: string;
@@ -37,12 +36,13 @@ export interface Docset {
 
   author: DocsetAuthor;
 }
+/* eslint-enable @typescript-eslint/naming-convention */
 
 export async function getAvailableDocsets(mirror?: string): Promise<Docset[]> {
   mirror = mirror !== undefined ? mirror + '.' : '';
 
   const url = `https://${mirror}kapeli.com/feeds/zzz/user_contributed/build/index.json`;
-  const response = await got(url, { responseType: 'json' });
+  const response = await got.get(url, { responseType: 'json' });
 
   const body = response.body as any;
 
@@ -65,7 +65,7 @@ export async function downloadDocset(
     const archiveUrl = metadata.urls[Math.floor(Math.random() * metadata.urls.length)];
 
     // eslint-disable-next-line import/namespace
-    const tempPath = tempy.file({ name: `${docset.name}.tar.gz` });
+    const tempPath = temporaryFile({ name: `${docset.name}.tar.gz` });
     const writeStream = fs
       .createWriteStream(tempPath)
       .on('finish', () => resolve(tempPath))

@@ -1,7 +1,7 @@
 // tslint:disable:no-console
 
-import * as chalk from 'chalk';
-import * as ProgressBar from 'progress';
+import chalk from 'chalk';
+import ProgressBar from 'progress';
 
 class Logger {
   private prefixLength = 8;

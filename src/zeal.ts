@@ -1,8 +1,8 @@
-import * as os from 'os';
-import * as path from 'path';
-import * as fs from 'fs-extra';
-import * as ini from 'ini';
-import * as Registry from 'winreg';
+import os from 'node:os';
+import path from 'node:path';
+import fs from 'fs-extra';
+import ini from 'ini';
+import Registry from 'winreg';
 
 // Zeal uses QStandardPaths::DataLocation + '/docsets' as docsets directory
 // See https://doc.qt.io/qt-5/qstandardpaths.html

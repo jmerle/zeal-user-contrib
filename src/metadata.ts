@@ -1,7 +1,7 @@
-import * as path from 'path';
-import * as fs from 'fs-extra';
-import { Docset } from './docsets';
-import { logger } from './logger';
+import path from 'node:path';
+import fs from 'fs-extra';
+import { Docset } from './docsets.js';
+import { logger } from './logger.js';
 
 export interface Metadata {
   // A link to the xml feed, zeal-user-contrib sets this to a zealusercontributions.now.sh feed
