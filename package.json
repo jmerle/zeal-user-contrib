@@ -30,7 +30,6 @@
     "fix": "pnpm run --sequential \"/^fix:.*/\"",
     "fix:eslint": "pnpm lint:eslint --fix",
     "fix:prettier": "prettier --write --ignore-path .gitignore '**/*.{yml,json}'",
-    "release": "np",
     "prepack": "pnpm build"
   },
   "dependencies": {
@@ -64,7 +63,6 @@
     "eslint-formatter-codeframe": "^7.32.1",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.25.3",
-    "np": "^8.0.4",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2"
   },
