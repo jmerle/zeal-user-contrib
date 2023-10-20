@@ -25,7 +25,7 @@
   "scripts": {
     "release": "np",
     "lint": "pnpm run \"/^lint:.*/\"",
-    "lint:eslint": "eslint --format codeframe 'src/**' 'bin/run.js'",
+    "lint:eslint": "eslint --format codeframe 'src/**'",
     "lint:prettier": "prettier --check --ignore-path .gitignore '**/*.{yml,json}'",
     "fix": "pnpm run --sequential \"/^fix:.*/\"",
     "fix:eslint": "pnpm lint:eslint --fix",
