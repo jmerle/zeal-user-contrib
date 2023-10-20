@@ -21,7 +21,9 @@ Usage: zeal-user-contrib [options]
 Options:
   -V, --version                  output the version number
   -m, --mirror <mirror>          the mirror to use, by default a random one is chosen (choices: "sanfrancisco", "newyork", "london", "frankfurt")
+  -l, --list-all                 List all available docsets without a pager
   -o, --output-directory <path>  path to Zeal's docsets directory, overriding the default search for it
+  -i, --install <ids...>         Install packages for the provided IDs
   -f, --force                    overwrite existing docsets
   -h, --help                     display help for command
 ```
