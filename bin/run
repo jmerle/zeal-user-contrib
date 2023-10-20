@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+import('../lib/index.mjs').then(({ run }) => {
+  run();
+});

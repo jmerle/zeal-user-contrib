@@ -2,8 +2,8 @@ import fs from 'fs-extra';
 import { got } from 'got';
 import tar from 'tar';
 import { temporaryFile } from 'tempy';
-import { logger } from './logger.js';
-import { Metadata } from './metadata.js';
+import { logger } from './logger.mjs';
+import { Metadata } from './metadata.mjs';
 
 export interface DocsetAuthor {
   name: string;

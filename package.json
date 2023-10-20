@@ -7,10 +7,9 @@
   "bugs": "https://github.com/jmerle/zeal-user-contrib/issues",
   "author": "Jasper van Merle",
   "license": "MIT",
-  "type": "module",
-  "exports": "./lib/index.js",
-  "types": "lib/index.d.ts",
-  "bin": "./bin/run.js",
+  "exports": "./lib/index.mjs",
+  "types": "lib/index.d.mts",
+  "bin": "./bin/run",
   "keywords": [
     "zeal",
     "dash",
@@ -23,14 +22,16 @@
     "/lib"
   ],
   "scripts": {
-    "release": "np",
+    "build": "rm -rf lib && tsc",
+    "start": "pnpm build && ./bin/run",
     "lint": "pnpm run \"/^lint:.*/\"",
     "lint:eslint": "eslint --format codeframe 'src/**'",
     "lint:prettier": "prettier --check --ignore-path .gitignore '**/*.{yml,json}'",
     "fix": "pnpm run --sequential \"/^fix:.*/\"",
     "fix:eslint": "pnpm lint:eslint --fix",
     "fix:prettier": "prettier --write --ignore-path .gitignore '**/*.{yml,json}'",
-    "prepack": "rm -rf lib && tsc -b"
+    "release": "np",
+    "prepack": "pnpm build"
   },
   "dependencies": {
     "chalk": "^5.3.0",
@@ -65,7 +66,6 @@
     "eslint-plugin-import": "^2.25.3",
     "np": "^8.0.4",
     "prettier": "^3.0.3",
-    "ts-node": "^10.4.0",
     "typescript": "^5.2.2"
   },
   "engines": {

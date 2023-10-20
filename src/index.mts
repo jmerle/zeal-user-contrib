@@ -5,11 +5,11 @@ import fs from 'fs-extra';
 import inquirer from 'inquirer';
 import AutocompletePrompt from 'inquirer-autocomplete-prompt';
 import { table, getBorderCharacters } from 'table';
-import { Docset, downloadDocset, extractDocset, getAvailableDocsets } from './docsets.js';
-import { saveIcons } from './icons.js';
-import { logger } from './logger.js';
-import { availableMirrors, getMetadata, saveMetadata } from './metadata.js';
-import { getDocsetsDirectory } from './zeal.js';
+import { Docset, downloadDocset, extractDocset, getAvailableDocsets } from './docsets.mjs';
+import { saveIcons } from './icons.mjs';
+import { logger } from './logger.mjs';
+import { availableMirrors, getMetadata, saveMetadata } from './metadata.mjs';
+import { getDocsetsDirectory } from './zeal.mjs';
 
 inquirer.registerPrompt('autocomplete', AutocompletePrompt);
 
